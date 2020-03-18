@@ -13,9 +13,5 @@ submittodo.addEventListener('click', function(event){
 });
 
 function appendTodo(text){
-    const listElement = document.createElement("li");
-    const todotext = document.createTextNode(text);
-    
-    listElement.appendChild(todotext);
-    todoList.appendChild(listElement);
+    todoList.innerHTML += `<li>${text} <button>Done</button> </li>`;
 }
