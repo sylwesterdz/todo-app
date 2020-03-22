@@ -1,6 +1,6 @@
 let todos = [];
 const submittodo = document.querySelector("#submittodo");
-const todoList = document.querySelector(".todo-list");
+const todoList = document.querySelector(".todo-list"); 
 
 submittodo.addEventListener('click', function(event){
     event.preventDefault();
@@ -13,9 +13,14 @@ submittodo.addEventListener('click', function(event){
 });
 
 function appendTodo(text){
-    const listElement = document.createElement("li");
-    const todotext = document.createTextNode(text);
+    todoList.innerHTML += `<li class="list-element">${text} <button class="todo-done">Done</button> </li>`;
     
-    listElement.appendChild(todotext);
-    todoList.appendChild(listElement);
-}
+    const todoDone = document.querySelectorAll(".todo-done");
+    const listElement = document.querySelectorAll(".list-element");
+
+    todoDone.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            listElement[index].classList.add("done");
+        });
+    });   
+};
