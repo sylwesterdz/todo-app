@@ -13,11 +13,18 @@ submittodo.addEventListener('click', function(event){
 });
 
 function appendTodo(text){
-    todoList.innerHTML += `<li class="list-element">${text} <button class="todo-done">Done</button> <button class="todo-delete">Delete</button> </li>`;
+    todoList.innerHTML += 
+        `<li class="list-element">
+            <span>${text}</span> 
+            <button class="todo-done">Done</button> 
+            <button class="todo-delete">Delete</button> 
+            <button class="todo-edit">Edit</button>
+        </li>`;
     
     const todoDone = document.querySelectorAll(".todo-done");
     const listElement = document.querySelectorAll(".list-element");
     const todoDelete = document.querySelectorAll(".todo-delete");
+    const todoEdit = document.querySelectorAll(".todo-edit");
 
     todoDone.forEach((button, index) => {
         button.addEventListener('click', () => {

@@ -1,4 +1,17 @@
 .done {
     text-decoration: line-through;
 }
-    
+
+body{
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    background-color: #D3D3D3;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.6;
+}
