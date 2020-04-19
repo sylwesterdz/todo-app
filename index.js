@@ -15,7 +15,7 @@ submittodo.addEventListener('click', function(event){
 function appendTodo(text){
     todoList.innerHTML += 
         `<li class="list-element">
-            <span>${text}</span> 
+            <span class="todo-text">${text}</span> 
             <button class="todo-done">Done</button> 
             <button class="todo-delete">Delete</button> 
             <button class="todo-edit">Edit</button>
@@ -27,6 +27,9 @@ function appendTodo(text){
     const todoEdit = document.querySelectorAll(".todo-edit");
     const popupOverlay = document.querySelector(".overlay");
     const popupClose = document.querySelector(".close");
+    const popupBar = document.querySelector("#editbar");
+    const popupAccept = document.querySelector(".accept");
+    let currentTodoIndex
 
     todoDone.forEach((button, index) => {
         button.addEventListener('click', () => {
@@ -38,9 +41,11 @@ function appendTodo(text){
             listElement[index].remove();
         });
     });
-    todoEdit.forEach((button) => {
+    todoEdit.forEach((button, index) => {
         button.addEventListener('click', () => {
             popupOverlay.classList.add("active");
+            popupBar.value = text;
+            currentTodoIndex = index;
         });
     });
     popupClose.addEventListener('click', () => {
@@ -49,6 +54,13 @@ function appendTodo(text){
     popupOverlay.addEventListener('click', event => {
         if (event.target.classList.contains("overlay")) {
             popupOverlay.classList.remove("active");
-        }
+        };
+    });
+    popupAccept.addEventListener('click', () => {
+        editTodo(currentTodoIndex, popupBar.value)
     })
 };
+
+function editTodo(index, text) {
+    console.log(index, text);
+}
