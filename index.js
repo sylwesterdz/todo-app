@@ -1,6 +1,6 @@
 let todos = [];
 const submittodo = document.querySelector("#submittodo");
-const todoList = document.querySelector(".todo-list"); 
+const todoList = document.querySelector(".todo-list");
 
 submittodo.addEventListener('click', function(event){
     event.preventDefault();
@@ -25,6 +25,8 @@ function appendTodo(text){
     const listElement = document.querySelectorAll(".list-element");
     const todoDelete = document.querySelectorAll(".todo-delete");
     const todoEdit = document.querySelectorAll(".todo-edit");
+    const popupOverlay = document.querySelector(".overlay");
+    const popupClose = document.querySelector(".close");
 
     todoDone.forEach((button, index) => {
         button.addEventListener('click', () => {
@@ -36,4 +38,17 @@ function appendTodo(text){
             listElement[index].remove();
         });
     });
+    todoEdit.forEach((button) => {
+        button.addEventListener('click', () => {
+            popupOverlay.classList.add("active");
+        });
+    });
+    popupClose.addEventListener('click', () => {
+        popupOverlay.classList.remove("active");
+    })
+    popupOverlay.addEventListener('click', event => {
+        if (event.target.classList.contains("overlay")) {
+            popupOverlay.classList.remove("active");
+        }
+    })
 };
