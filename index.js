@@ -1,11 +1,18 @@
 let todos = [];
 const submittodo = document.querySelector("#submittodo");
 const todoList = document.querySelector(".todo-list");
+const popupOverlay = document.querySelector(".overlay");
+const popupClose = document.querySelector(".close");
+const popupBar = document.querySelector("#editbar");
+const popupAccept = document.querySelector(".accept");
+const popupCancel = document.querySelector(".cancel");
+let currentTodoIndex
+let currentTodoText
 
 submittodo.addEventListener('click', function(event){
     event.preventDefault();
 
-    const todotext = document.querySelector("#todo").value;
+    let todotext = document.querySelector("#todo").value;
     
     todos.push(todotext);
     document.querySelector("#todo").value = "";
@@ -23,14 +30,10 @@ function appendTodo(text){
     
     const todoDone = document.querySelectorAll(".todo-done");
     const listElement = document.querySelectorAll(".list-element");
+    const todoText = document.querySelectorAll(".todo-text");
     const todoDelete = document.querySelectorAll(".todo-delete");
     const todoEdit = document.querySelectorAll(".todo-edit");
-    const popupOverlay = document.querySelector(".overlay");
-    const popupClose = document.querySelector(".close");
-    const popupBar = document.querySelector("#editbar");
-    const popupAccept = document.querySelector(".accept");
-    let currentTodoIndex
-
+    
     todoDone.forEach((button, index) => {
         button.addEventListener('click', () => {
             listElement[index].classList.add("done");
@@ -44,23 +47,30 @@ function appendTodo(text){
     todoEdit.forEach((button, index) => {
         button.addEventListener('click', () => {
             popupOverlay.classList.add("active");
-            popupBar.value = text;
+            popupBar.value = todoText[index].innerHTML;
             currentTodoIndex = index;
         });
     });
-    popupClose.addEventListener('click', () => {
-        popupOverlay.classList.remove("active");
-    })
-    popupOverlay.addEventListener('click', event => {
-        if (event.target.classList.contains("overlay")) {
-            popupOverlay.classList.remove("active");
-        };
-    });
-    popupAccept.addEventListener('click', () => {
-        editTodo(currentTodoIndex, popupBar.value)
-    })
 };
 
+popupClose.addEventListener('click', () => {
+    popupOverlay.classList.remove("active");
+});
+popupOverlay.addEventListener('click', event => {
+    if (event.target.classList.contains("overlay")) {
+        popupOverlay.classList.remove("active");
+    };
+});
+popupCancel.addEventListener('click', () => {
+    popupOverlay.classList.remove("active");
+});
+popupAccept.addEventListener('click', () => {
+    editTodo(currentTodoIndex, popupBar.value)
+    popupOverlay.classList.remove("active");
+});
+
 function editTodo(index, text) {
-    console.log(index, text);
+    const todoText = document.querySelectorAll(".todo-text");
+    
+    todoText[index].innerHTML = text;
 }
